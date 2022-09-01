@@ -1,1 +1,1 @@
-<h1> hello Creating custom controller</h1>
+<h1> hello this is view</h1>
