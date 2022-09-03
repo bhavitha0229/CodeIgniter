@@ -40,7 +40,7 @@
 
 
 <?php echo form_open('users/login', $attributes); ?>
-<?php echo validation_errors(); ?>
+
 <div class="form-group">
     <?php echo form_label('Username'); ?>
 
@@ -48,7 +48,7 @@
             'class' => 'form-control',
             'name' => 'username',
             'placeholder' => 'Enter Username',
-            'Username' => 'required'
+
         );
         ?>
     <?php echo form_input($data); ?>

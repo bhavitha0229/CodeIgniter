@@ -49,6 +49,26 @@ class Users extends CI_Controller
 
     // $_POST['username'];
     // echo  $this->input->post('username');
+    public function register()
+    {
+        $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|min_length[3]');
+        $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|min_length[3]');
+        $this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[3]');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[3]');
+        $this->form_validation->set_rules('confirm_password', 'Confirm Password', 'trim|required|min_length[3]|matches[password]');
+        if ($this->form_validation->run() == FALSE) {
+            //redirect('http://google.com');
+
+            $data['main_view'] = 'users/register_view';
+            $this->load->view('layouts/main', $data);
+        } else {
+            if ($this->user_model->create_user()) {
+                $this->session->set_flashdata('user_registered', 'User has been');
+                redirect('home/index');
+            } else {
+            }
+        }
+    }
 
     public function login()
     {
@@ -81,9 +101,10 @@ class Users extends CI_Controller
                 $this->session->set_userdata($user_data);
                 $this->session->set_flashdata('login_success', 'You are now logged in');
 
-                $data['main_view'] = "admin_view";
-                $this->load->view('layouts/main', $data);
-                // redirect('home/index');
+                // $data['main_view'] = "admin_view";
+                // $this->load->view('layouts/main', $data);
+
+                redirect('home/index');
             } else {
                 $this->session->set_flashdata('login_failed', 'Sorry You are not logged in');
                 redirect('home/index');
